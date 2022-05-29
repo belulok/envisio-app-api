@@ -1,0 +1,17 @@
+# Anything that is listed in this file will not be passed into the Docker context
+
+# Git
+.git
+.gitingmore
+
+# Docker
+.docker
+
+# Python
+app/__pycache__/
+app/*/__pycache__/
+app/*/*/__pycache__/
+app/*/*/*/__pycache__/
+.env/
+.venv/
+venv/

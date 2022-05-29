@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED 1
 
 #This line below is to copy the requirements.txt from the local machine into the Docker image
 COPY ./requirements.txt /tmp/requirements.txt
+COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 #This line below is to copy the app directory from the local machine into the Docker image
 COPY ./app /app
 #This line below is to set the app directory as the default directory that will run commands on our Docker image
@@ -16,9 +17,13 @@ WORKDIR /app
 #This line below is to expose Port 8000 from our container to our machine when we run the container
 EXPOSE 8000
 
+ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
+    if [ $DEV = "true" ]; \
+        then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+    fi && \
     rm -rf /tmp && \
     adduser \
         --disabled-password \

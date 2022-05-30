@@ -1,9 +1,6 @@
 """
 Tests for models.
 """
-from decimal import Decimal
-from http import client
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -67,4 +64,3 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(report), report.job_id)
-

@@ -54,6 +54,7 @@ class Report(models.Model):
         on_delete=models.CASCADE,
     )
     job_id = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
     clients = models.CharField(max_length=200)
     client_logo = models.CharField(max_length=200)
     # client_logo = models.ImageField(upload_to='images/')

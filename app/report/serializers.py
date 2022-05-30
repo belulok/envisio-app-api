@@ -71,4 +71,4 @@ class ReportDetailSerializer(ReportSerializer):
     """Serializer for report detail view."""
 
     class Meta(ReportSerializer.Meta):
-        fields = ReportSerializer.Meta.fields + ['location']
+        fields = ReportSerializer.Meta.fields + ['description']

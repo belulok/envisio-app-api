@@ -1,6 +1,7 @@
 """
 Tests for models.
 """
+from pydoc import describe
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -58,6 +59,7 @@ class ModelTests(TestCase):
         report = models.Report.objects.create(
             user=user,
             job_id='abcde',
+            description='abced',
             clients='abcde',
             client_logo='abcde',
             location='abcde',

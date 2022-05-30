@@ -28,10 +28,56 @@ def create_report(user, **params):
     """Create and return a sample report."""
     defaults = {
         'job_id': 'abcde',
-        'description': 'abcde',
         'clients': 'abcde',
         'client_logo': 'abcde',
         'location': 'abcde',
+        'year': 'abcde',
+        'month': 'abcde',
+        'initial': 'abcde',
+        'po_num': 'abcde',
+        'hub': 'abcde',
+        'platform_location': 'abcde',
+        'survey_date': 'abcde',
+        'inspection_by': 'abcde',
+        'valve_tag_no': 'abcde',
+        'valve_description': 'abcde',
+        'valve_type': 'abcde',
+        'functions': 'abcde',
+        'valve_size': 'abcde',
+        'valve_make': 'abcde',
+        'actuator_make': 'abcde',
+        'valve_photo': 'abcde',
+        'p_and_id_no': 'abcde',
+        'mal_sof': 'abcde',
+        'mal_sof_others': 'abcde',
+        'mal': 'abcde',
+        'mal_warn': 'abcde',
+        'fluid_type': 'abcde',
+        'presure_upstream': 'abcde',
+        'pressure_downstream': 'abcde',
+        'flow_direction': 'abcde',
+        'u3': 'abcde',
+        'u2': 'abcde',
+        'u1': 'abcde',
+        'va': 'abcde',
+        'vb': 'abcde',
+        'vc': 'abcde',
+        'vd': 'abcde',
+        'd1': 'abcde',
+        'd2': 'abcde',
+        'd3': 'abcde',
+        'result': 'abcde',
+        'estimated_leak_rate': 'abcde',
+        'color_code': 'abcde',
+        'reason_not_tested': 'abcde',
+        'discussion_result': 'abcde',
+        'recommended_action': 'abcde',
+        'maintenance_his': 'abcde',
+        'avail_nameplate_tagno': 'abcde',
+        'presence_downstream': 'abcde',
+        'leak_visibility_body': 'abcde',
+        'severe_corrosion_flanges': 'abcde',
+        'visibility_crack_nuts_bolt': 'abcde',
     }
     defaults.update(params)
 
@@ -104,10 +150,56 @@ class PrivateReportApiTests(TestCase):
         """Test creating a report."""
         payload = {
             'job_id': 'abcde',
-            'description': 'abcde',
             'clients': 'abcde',
             'client_logo': 'abcde',
             'location': 'abcde',
+            'year': 'abcde',
+            'month': 'abcde',
+            'initial': 'abcde',
+            'po_num': 'abcde',
+            'hub': 'abcde',
+            'platform_location': 'abcde',
+            'survey_date': 'abcde',
+            'inspection_by': 'abcde',
+            'valve_tag_no': 'abcde',
+            'valve_description': 'abcde',
+            'valve_type': 'abcde',
+            'functions': 'abcde',
+            'valve_size': 'abcde',
+            'valve_make': 'abcde',
+            'actuator_make': 'abcde',
+            'valve_photo': 'abcde',
+            'p_and_id_no': 'abcde',
+            'mal_sof': 'abcde',
+            'mal_sof_others': 'abcde',
+            'mal': 'abcde',
+            'mal_warn': 'abcde',
+            'fluid_type': 'abcde',
+            'presure_upstream': 'abcde',
+            'pressure_downstream': 'abcde',
+            'flow_direction': 'abcde',
+            'u3': 'abcde',
+            'u2': 'abcde',
+            'u1': 'abcde',
+            'va': 'abcde',
+            'vb': 'abcde',
+            'vc': 'abcde',
+            'vd': 'abcde',
+            'd1': 'abcde',
+            'd2': 'abcde',
+            'd3': 'abcde',
+            'result': 'abcde',
+            'estimated_leak_rate': 'abcde',
+            'color_code': 'abcde',
+            'reason_not_tested': 'abcde',
+            'discussion_result': 'abcde',
+            'recommended_action': 'abcde',
+            'maintenance_his': 'abcde',
+            'avail_nameplate_tagno': 'abcde',
+            'presence_downstream': 'abcde',
+            'leak_visibility_body': 'abcde',
+            'severe_corrosion_flanges': 'abcde',
+            'visibility_crack_nuts_bolt': 'abcde',
         }
         res = self.client.post(REPORTS_URL, payload)
 
@@ -119,38 +211,83 @@ class PrivateReportApiTests(TestCase):
 
     def test_partial_update(self):
         """Test partial update of a report."""
-        original_location = 'https://example.com/report.pdf'
+        original_client = 'abcde'
         report = create_report(
             user=self.user,
-            job_id='Sample report title',
-            location=original_location,
+            job_id='abcde',
+            clients=original_client,
         )
 
-        payload = {'job_id': 'New report title'}
+        payload = {'job_id': 'abcde'}
         url = detail_url(report.id)
         res = self.client.patch(url, payload)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         report.refresh_from_db()
         self.assertEqual(report.job_id, payload['job_id'])
-        self.assertEqual(report.location, original_location)
+        self.assertEqual(report.clients, original_client)
         self.assertEqual(report.user, self.user)
 
     def test_full_update(self):
         """Test full update of report."""
         report = create_report(
             user=self.user,
-            job_id='Sample report title',
-            location='https://exmaple.com/report.pdf',
-            client_logo='Sample report description.',
+            job_id='abcde',
+            clients='abcde',
         )
 
         payload = {
             'job_id': 'abcde',
-            'description': 'abcde',
             'clients': 'abcde',
             'client_logo': 'abcde',
             'location': 'abcde',
+            'year': 'abcde',
+            'month': 'abcde',
+            'initial': 'abcde',
+            'po_num': 'abcde',
+            'hub': 'abcde',
+            'platform_location': 'abcde',
+            'survey_date': 'abcde',
+            'inspection_by': 'abcde',
+            'valve_tag_no': 'abcde',
+            'valve_description': 'abcde',
+            'valve_type': 'abcde',
+            'functions': 'abcde',
+            'valve_size': 'abcde',
+            'valve_make': 'abcde',
+            'actuator_make': 'abcde',
+            'valve_photo': 'abcde',
+            'p_and_id_no': 'abcde',
+            'mal_sof': 'abcde',
+            'mal_sof_others': 'abcde',
+            'mal': 'abcde',
+            'mal_warn': 'abcde',
+            'fluid_type': 'abcde',
+            'presure_upstream': 'abcde',
+            'pressure_downstream': 'abcde',
+            'flow_direction': 'abcde',
+            'u3': 'abcde',
+            'u2': 'abcde',
+            'u1': 'abcde',
+            'va': 'abcde',
+            'vb': 'abcde',
+            'vc': 'abcde',
+            'vd': 'abcde',
+            'd1': 'abcde',
+            'd2': 'abcde',
+            'd3': 'abcde',
+            'result': 'abcde',
+            'estimated_leak_rate': 'abcde',
+            'color_code': 'abcde',
+            'reason_not_tested': 'abcde',
+            'discussion_result': 'abcde',
+            'recommended_action': 'abcde',
+            'maintenance_his': 'abcde',
+            'avail_nameplate_tagno': 'abcde',
+            'presence_downstream': 'abcde',
+            'leak_visibility_body': 'abcde',
+            'severe_corrosion_flanges': 'abcde',
+            'visibility_crack_nuts_bolt': 'abcde',
         }
         url = detail_url(report.id)
         res = self.client.put(url, payload)

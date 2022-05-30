@@ -1,7 +1,7 @@
 """
 Tests for models.
 """
-from pydoc import describe
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -59,10 +59,56 @@ class ModelTests(TestCase):
         report = models.Report.objects.create(
             user=user,
             job_id='abcde',
-            description='abced',
             clients='abcde',
             client_logo='abcde',
             location='abcde',
+            year='abcde',
+            month='abcde',
+            initial='abcde',
+            po_num='abcde',
+            hub='abcde',
+            platform_location='abcde',
+            survey_date='abcde',
+            inspection_by='abcde',
+            valve_tag_no='abcde',
+            valve_description='abcde',
+            valve_type='abcde',
+            functions='abcde',
+            valve_size='abcde',
+            valve_make='abcde',
+            actuator_make='abcde',
+            valve_photo='abcde',
+            p_and_id_no='abcde',
+            mal_sof='abcde',
+            mal_sof_others='abcde',
+            mal='abcde',
+            mal_warn='abcde',
+            fluid_type='abcde',
+            presure_upstream='abcde',
+            pressure_downstream='abcde',
+            flow_direction='abcde',
+            u3='abcde',
+            u2='abcde',
+            u1='abcde',
+            va='abcde',
+            vb='abcde',
+            vc='abcde',
+            vd='abcde',
+            d1='abcde',
+            d2='abcde',
+            d3='abcde',
+            result='abcde',
+            estimated_leak_rate='abcde',
+            color_code='abcde',
+            reason_not_tested='abcde',
+            discussion_result='abcde',
+            recommended_action='abcde',
+            maintenance_his='abcde',
+            avail_nameplate_tagno='abcde',
+            presence_downstream='abcde',
+            leak_visibility_body='abcde',
+            severe_corrosion_flanges='abcde',
+            visibility_crack_nuts_bolt='abcde',
         )
 
         self.assertEqual(str(report), report.job_id)

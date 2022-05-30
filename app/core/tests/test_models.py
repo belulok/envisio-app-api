@@ -1,8 +1,13 @@
 """
 Tests for models.
 """
+from decimal import Decimal
+from http import client
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
+from core import models
 
 
 class ModelTests(TestCase):
@@ -46,3 +51,20 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_create_report(self):
+        """Test creating a report is successful."""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123',
+        )
+        report = models.Report.objects.create(
+            user=user,
+            job_id='abcde',
+            clients='abcde',
+            client_logo='abcde',
+            location='abcde',
+        )
+
+        self.assertEqual(str(report), report.job_id)
+

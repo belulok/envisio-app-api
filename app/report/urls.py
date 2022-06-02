@@ -13,6 +13,7 @@ from report import views
 
 router = DefaultRouter()
 router.register('reports', views.ReportViewSet)
+router.register('jobs', views.JobViewSet)
 
 app_name = 'report'
 

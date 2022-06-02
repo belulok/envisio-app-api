@@ -3,11 +3,24 @@ Serializers for report APIs
 """
 from rest_framework import serializers
 
-from core.models import Report
+from core.models import (
+    Report,
+    Job,
+)
+
+
+class JobSerializer(serializers.ModelSerializer):
+    """Serializer for jobids."""
+
+    class Meta:
+        model = Job
+        fields = ['id', 'name']
+        read_only_fields = ['id']
 
 
 class ReportSerializer(serializers.ModelSerializer):
     """Serializer for reports."""
+    jobs = JobSerializer(many=True, required=False)
 
     class Meta:
         model = Report
@@ -63,8 +76,40 @@ class ReportSerializer(serializers.ModelSerializer):
                   'leak_visibility_body',
                   'severe_corrosion_flanges',
                   'visibility_crack_nuts_bolt',
+                  'jobs'
                   ]
         read_only_fields = ['id']
+
+    def _get_or_create_jobs(self, jobs, report):
+        """Handle getting or creating jobs as needed"""
+        auth_user = self.context['request'].user
+        for job in jobs:
+            job_obj, created = Job.objects.get_or_create(
+                user=auth_user,
+                **job,
+            )
+            report.jobs.add(job_obj)
+
+    def create(self, validated_data):
+        """Create a report."""
+        jobs = validated_data.pop('jobs', [])
+        report = Report.objects.create(**validated_data)
+        self._get_or_create_jobs(jobs, report)
+
+        return report
+
+    def update(self, instance, validated_data):
+        """Update a report"""
+        jobs = validated_data.pop('jobs', None)
+        if jobs is not None:
+            instance.jobs.clear()
+            self._get_or_create_jobs(jobs, instance)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
 
 
 class ReportDetailSerializer(ReportSerializer):

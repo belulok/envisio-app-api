@@ -115,6 +115,20 @@ class Report(models.Model):
     leak_visibility_body = models.CharField(max_length=200)
     severe_corrosion_flanges = models.CharField(max_length=200)
     visibility_crack_nuts_bolt = models.CharField(max_length=200)
+    jobs = models.ManyToManyField('Job')
 
     def __str__(self):
         return self.job_id
+
+
+class Job(models.Model):
+    """"Job for filtering report"""
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return self.name

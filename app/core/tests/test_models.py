@@ -112,3 +112,18 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(report), report.job_id)
+
+    def test_create_clients(self):
+        """Test creating a client is successful"""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123',
+        )
+        clients = models.Clients.objects.create(
+            user=user,
+            name='Shell',
+            location='Miri',
+            logo='asdsa',
+        )
+
+        self.assertEqual(str(clients), clients.name)

@@ -1,6 +1,7 @@
 """
 Serializers for report APIs
 """
+from dataclasses import fields
 from rest_framework import serializers
 
 from core.models import Report
@@ -71,4 +72,14 @@ class ReportDetailSerializer(ReportSerializer):
     """Serializer for report detail view."""
 
     class Meta(ReportSerializer.Meta):
-        fields = ReportSerializer.Meta.fields + ['id']
+        fields = ReportSerializer.Meta.fields + ['id', 'image']
+
+
+class ReportImageSerializer(serializers.ModelSerializer):
+    """Serializer for uploading images to reports"""
+
+    class Meta:
+        model = Report
+        fields = ['id', 'image']
+        read_only_fields = ['id']
+        extra_kwargs = {'image': {'required': 'True'}}

@@ -1,6 +1,9 @@
 """
 Database models.
 """
+import uuid
+import os
+
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
@@ -9,7 +12,12 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
-# Create your models here.
+def report_image_file_path(instance, filename):
+    """Generate file path for new report image"""
+    ext = os.path.splitext(filename)[1]
+    filename = f'{uuid.uuid4()}{ext}'
+
+    return os.path.join('uploads', 'report', filename)
 
 
 class UserManager(BaseUserManager):
@@ -56,7 +64,6 @@ class Report(models.Model):
     job_id = models.CharField(max_length=200)
     clients = models.CharField(max_length=200)
     client_logo = models.CharField(max_length=200)
-    # client_logo = models.ImageField(upload_to='images/')
     location = models.CharField(max_length=200)
     year = models.CharField(max_length=200)
     month = models.CharField(max_length=200)
@@ -115,6 +122,7 @@ class Report(models.Model):
     leak_visibility_body = models.CharField(max_length=200)
     severe_corrosion_flanges = models.CharField(max_length=200)
     visibility_crack_nuts_bolt = models.CharField(max_length=200)
+    image = models.ImageField(null=True, upload_to=report_image_file_path)
 
     def __str__(self):
         return self.job_id

@@ -1,11 +1,16 @@
 """
 Tests for models.
 """
+from unittest.mock import patch
 
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 from core import models
+
+def create_user(email='user@example.com', password='testpass123'):
+    """Create a return a new user."""
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelTests(TestCase):
@@ -127,3 +132,12 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(clients), clients.name)
+
+    @patch('core.models.uuid.uuid4')
+    def test_report_file_name_uuid(self, mock_uuid):
+        """Test generating image path"""
+        uuid = 'test-uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.report_image_file_path(None, 'example.jpg')
+
+        self.assertEqual(file_path, f'uploads/report/{uuid}.jpg')

@@ -119,6 +119,7 @@ class Report(models.Model):
     def __str__(self):
         return self.job_id
 
+
 class Clients(models.Model):
     """Clients object"""
     user = models.ForeignKey(
